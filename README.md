@@ -9,3 +9,13 @@
 The idea is to simply store the results of subproblems, so that we don't have to re-compute them
 when needed later. This simple optimisation reduces time complexities from exponential to
 polynomial
+
+## Memoization recipe
+ 1. Make it work
+  - visualize the problem as a tree
+  - implement the tree using recursion (brute force)
+  - test it
+ 2. Make it efficient 
+  - add a memo object
+  - add a base case to return memo values
+  - store return values into the memo
