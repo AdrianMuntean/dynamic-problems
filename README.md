@@ -19,3 +19,8 @@ polynomial
   - add a memo object
   - add a base case to return memo values
   - store return values into the memo
+
+## [can|how|best]Sum breakdown
+  - canSum -> "Can you do it? yes/no = Decision problem
+  - howSum -> "How will you do it?" = Combinatoric problem
+  - bestSum -> "What is the 'best' way to do it?" = Optimization problem
