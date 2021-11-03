@@ -64,6 +64,51 @@ const canSumMemo = (targetSum, numbers, memo = {}) => {
   
 };
 
+/**
+ * ex: canSum(7, [5, 3, 4]) => true
+ * If the problem returns a boolean, then start with 'false' values.
+ * since canSum(0, [...]) => true, then array[0] = true
+ * true on a specific index actually means that I can create that index.
+ * Starting off from 0 then take the first element from array and place true on 
+ * index 5. Cause I can also sum to 5. Then on index 3 also place a true, since 3 can
+ * also be created. Same for 4. 
+ *
+ * After all the input array is iterated over, then move over to the next index with true value. 
+ * Index 3 is reached (since we placed true on the first iteration). Then start again with the 
+ * iteration of the array and place true on 5+3 index. But since that is out of bounds, just ignore it. Mark 6 and 7 (3, 4 from the index)
+ * And so on. 
+ *
+ * In the end my array will look something like
+ * 0 1 2 3 4 5 6 7
+ * T F F T T T T T 
+ *
+ * And return array[7]
+ *
+ * Complexity:
+ * m = targetSum
+ * n = numbers.length
+ *
+ * O(nm) time
+ * O(m) space
+ */
+const canSumTabulation = (targetSum, numbers) => {
+  const table = Array(targetSum + 1).fill(false);
+  
+  table[0] = true;
+
+  for (let i = 0; i <= table.length; i++) {
+    if (table[i]) {
+      for (let num of numbers) {
+        if (i + num <= targetSum) {
+          table[i + num] = true;
+        }
+      }
+    }
+  }
+
+  return table[targetSum];
+}
+
 console.log(canSum(7, [2, 3])); // true
 console.log(canSum(7, [5, 3, 4, 7])); // true
 console.log(canSum(7, [2, 4])); // false
@@ -75,4 +120,10 @@ console.log(canSumMemo(7, [2, 3])); // true
 console.log(canSumMemo(7, [5, 3, 4, 7])); // true
 console.log(canSumMemo(7, [2, 4])); // false
 console.log(canSumMemo(8, [2, 3, 5])); // true
-console.log(canSumMemo(300, [7, 14])); // false
+
+console.log('tabulation');
+console.log(canSumTabulation(7, [2, 3])); // true
+console.log(canSumTabulation(7, [5, 3, 4, 7])); // true
+console.log(canSumTabulation(7, [2, 4])); // false
+console.log(canSumTabulation(8, [2, 3, 5])); // true
+console.log(canSumTabulation(300, [7, 14])); // false

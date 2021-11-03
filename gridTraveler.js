@@ -44,9 +44,27 @@ const gridTravelerMemo = (m, n, memo={}) => {
     return memo[key];
 }
 
+// O(mn) time, since we are iterating over the table
+const gridTravelerTabulation = (m, n) => {
+    // create the 2d array
+    // since this is a counting problem, start with 0s
+    const table = Array(m + 1)
+        .fill()
+        .map(() => Array(n + 1).fill(0))
+    table[1][1] = 1;
+    for (let i = 0; i <= m; i++) {
+      for (let j = 0; j <= n; j++) {
+        const current = table[i][j];
+        if (j + 1 <= n) table[i][j + 1] += current;
+        if (i + 1 <= m) table[i + 1][j] += current;
+      }
+    }
+
+  return table[m][n];
+}
+
 // console.log(gridTraveler(20, 20)); => too much time
 console.log(gridTravelerMemo(21, 21)); // 137846528820 
-
-
-
+console.log(gridTravelerTabulation(3, 3));
+console.log(gridTravelerTabulation(21, 21)); // 137846528820 
 

@@ -20,6 +20,15 @@ polynomial
   - add a base case to return memo values
   - store return values into the memo
 
+## Tabulation recipe
+  - Visualize the problem as a table
+  - Size the table based on the inputs
+  - Initialize the table with default values
+  - seed the trivial answer into the table (similar with the breaking point in recursion)
+  - iterate through the table
+  - fill further positions based on the current position
+    - use the problem description to see some patterns or possible directions
+  
 ## [can|how|best]Sum breakdown
   - canSum -> "Can you do it? yes/no = Decision problem
   - howSum -> "How will you do it?" = Combinatoric problem

@@ -70,6 +70,42 @@ const howSumMemo = (targetSum, numbers, memo={}) => {
   return null;
 }
 
+/**
+ * see canSum.js#canSumTabulation for more details
+ * Start with null initial value. 
+ * What is the appropriate seed value? Empty array []. 
+ *
+ * The array
+ * 0  1 2 3 4 5 6 7
+ * [] null ........
+ *
+ * Start from the 0 index copy over the value in the new index. Then move to the next non null value.
+ * Copy the array from the current index and include the number we are looking at in the numbers array. 
+ *
+ * Return the position from the last index
+ *
+ * Complexity: 
+ * m = targetSum
+ * n = numbers.length
+ * O(nm^2)
+ */
+const howSumTabulation = (targetSum, numbers) => {
+  const table = Array(targetSum + 1).fill(null);
+  table[0] = [];
+
+  for (let i = 0; i <= targetSum; i++) {
+    if (table[i] !== null) {
+      for (let num of numbers) {
+        if (i + num <= targetSum) {
+           table[i + num] = [...table[i], num];
+        }
+      }
+    }
+  }
+
+  return table[targetSum];
+}
+
 console.log(howSum(7, [2, 3])); // [3, 2, 3]
 console.log(howSum(7, [5, 3, 4, 7])); // [4, 3]
 console.log(howSum(7, [2, 4])); //null 
@@ -82,3 +118,10 @@ console.log(howSumMemo(7, [5, 3, 4, 7])); // [4, 3]
 console.log(howSumMemo(7, [2, 4])); //null 
 console.log(howSumMemo(8, [2, 3, 5])); // [2, 2, 2, 2]
 console.log(howSumMemo(300, [7, 14])); //null 
+
+console.log('Using tabulation');
+console.log(howSumTabulation(7, [2, 3])); // [3, 2, 3]
+console.log(howSumTabulation(7, [5, 3, 4, 7])); // [4, 3]
+console.log(howSumTabulation(7, [2, 4])); //null 
+console.log(howSumTabulation(8, [2, 3, 5])); // [2, 2, 2, 2]
+console.log(howSumTabulation(300, [7, 14])); //null 
