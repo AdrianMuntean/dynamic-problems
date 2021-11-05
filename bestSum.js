@@ -48,10 +48,40 @@ const bestSumMemo = (targetSum, numbers, memo={}) => {
   return memo[targetSum] || null;
 }
 
+/*
+ * See canSum.js and howSum.js for more details on how to approach this from a tabulation perspective. 
+ * O(n*m^2) time complexity
+ */
+const bestSumTabulation = (targetSum, numbers) => {
+  const table = Array(targetSum + 1).fill(null);
+  table[0] = [];
+
+  for (let i = 0; i <= targetSum; i++) {
+    if (table[i] !== null) {
+      for (let num of numbers) {
+        // check the shorter array
+        const combination = [...table[i], num];
+        if (!table[i + num] || combination.length < table[i + num].length)
+          table[i + num] = combination;
+      }
+    }
+  }
+  return table[targetSum];  
+}
+
 console.log(bestSumMemo(7, [2, 3])); // [3, 2, 3]
 console.log(bestSumMemo(7, [5, 3, 4, 7])); // [7]
 console.log(bestSumMemo(7, [2, 4])); //null 
 console.log(bestSumMemo(8, [2, 3, 5])); // [3, 5]
 console.log(bestSumMemo(8, [1, 4, 5])); // [4, 4]
 console.log(bestSumMemo(100, [1, 2, 5, 25])) // [25, 25, 25, 25]
-console.log(bestSumMemo(300, [7, 14])); //null 
+// console.log(bestSumMemo(300, [7, 14])); //null 
+
+console.log('\ntabulation');
+console.log(bestSumTabulation(7, [2, 3])); // [3, 2, 3]
+console.log(bestSumTabulation(7, [5, 3, 4, 7])); // [7]
+console.log(bestSumTabulation(7, [2, 4])); //null 
+console.log(bestSumTabulation(8, [2, 3, 5])); // [3, 5]
+console.log(bestSumTabulation(8, [1, 4, 5])); // [4, 4]
+console.log(bestSumTabulation(100, [1, 2, 5, 25])) // [25, 25, 25, 25]
+console.log(bestSumTabulation(300, [7, 14])); //null 
