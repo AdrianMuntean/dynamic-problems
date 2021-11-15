@@ -1,8 +1,8 @@
 # Dynamic programming?
 
-## Def
+## Definition
  1. The pattern of overlapping subproblems.
- 2. Any instanace where the problem can be decomposed into smaller instances of the same problem. 
+ 2. Any instance where the problem can be decomposed into smaller instances of the same problem. 
  3. An optimization over plain recursion. 
 
 ## The idea
